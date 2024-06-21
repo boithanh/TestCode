@@ -1,64 +1,133 @@
-<!doctype html>
 <html lang="en">
 
 <head>
-    <title>TestCode</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="">
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>TestCode Repo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 
 <body>
-    <header>
-        <!-- place navbar here -->
-    </header>
-    <main>
-        <!-- Tạo Hiệu ứng backgroud chạy gradient trong phần tử -->
-        <section>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="glowing-border">Hello, World!
-                        </div>
-                    </div>
-                </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 mx-auto">
+        <h3 class="display-4 text-center">Quản Lý sinh viên</h3>
+        <form id="formQLSV">
+          <div class="row">
+            <div class="col-6 form-group">
+              <label for="">Mã Sinh Viên : </label>
+              <input type="text" class="form-control" id="txtMaSV" />
+              <span id="spanMaSV" class="text-danger"></span>
             </div>
-        </section>
-
-        <!-- HIệu úng đường viền chạy xung quanh  -->
-
-        <section>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="bb"></div>
-                    </div>
-                </div>
+            <div class="col-6 form-group">
+              <label for="">Tên Sinh Viên : </label>
+              <input type="text" class="form-control" id="txtTenSV" />
+              <span id="spanTenSV" class="text-danger"></span>
             </div>
-        </section>
+          </div>
+          <div class="row">
+            <div class="col-6 form-group">
+              <label for="">Email : </label>
+              <input type="text" class="form-control" id="txtEmail" />
+              <span id="spanEmailSV" class="text-danger"></span>
+            </div>
+            <div class="col-6 form-group">
+              <label for="">Mật khẩu: </label>
+              <input type="password" class="form-control" id="txtPass" />
+              <span id="spanMatKhau" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 form-group">
+              <label for="">Ngày Sinh : </label>
+              <input type="date" class="form-control" id="txtNgaySinh" />
+              <span id="spanNgaySinh" class="text-danger"></span>
+            </div>
+            <div class="col-6 form-group">
+              <label for="">Khóa học: </label>
+              <select name="" id="khSV" class="form-control">
+                <option>Chọn khóa học</option>
+                <option>KH001</option>
+                <option>KH002</option>
+              </select>
+              <span id="spanKhoaHoc" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 form-group">
+              <label for="">Điểm toán : </label>
+              <input type="number" class="form-control" id="txtDiemToan" />
+              <span id="spanToan" class="text-danger"></span>
+            </div>
+            <div class="col-4 form-group">
+              <label for="">Điểm lý : </label>
+              <input type="number" class="form-control" id="txtDiemLy" />
+              <span id="spanLy" class="text-danger"></span>
+            </div>
+            <div class="col-4 form-group">
+              <label for="">Điểm hóa : </label>
+              <input type="number" class="form-control" id="txtDiemHoa" />
+              <span id="spanHoa" class="text-danger"></span>
+            </div>
+          </div>
 
+          <div class="form-group text-center">
+            <button type="submit" onclick="" class="btn btn-success">
+              Thêm Sinh Viên
+            </button>
 
-    </main>
-    <footer>
-        <!-- place footer here -->
-    </footer>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
-    <script src="js/index.js"></script>
+            <button type="button" onclick="" class="btn btn-dark">
+              Reset
+            </button>
+            <button type="button" onclick="" class="btn btn-info">
+              Cập Nhật
+            </button>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-9 form-group">
+            <input placeholder="Nhập tên sinh viên" type="text" class="form-control" id="txtSearch" />
+          </div>
+          <div class="col-3 form-group">
+            <button id="btnSearch" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 mx-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mã Sinh Viên</th>
+              <th>Tên Sinh Viên</th>
+              <th>Email</th>
+              <th>Ngày Sinh</th>
+              <th>Khóa Học</th>
+              <th>Điểm Trung Bình</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbodySinhVien"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+  </div>
+  <!-- Lưu ý đặt model trên file chính, do cần khởi tạo đối tượng trc khi sử dụng bên file khác -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="models/SinhVien.js"></script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>

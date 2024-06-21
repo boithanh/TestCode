@@ -1,134 +1,125 @@
-// //Call back function
-// function tinhDiemTrungBinh(chucNang) {
-//     let diemToan = 9;
-//     let diemLy = 7;
-//     let diemHoa = 5;
-//     let diemTrungBinh = (diemToan + diemLy + diemHoa) / 3;
-//     chucNang(diemTrungBinh);
-// }
+// let sinhvien = new SinhVien;
+// console.log(sinhvien);
 
 
-// function xepLoaiSinhVien(diemTrungBinh) {
-//     if (diemTrungBinh > 7) {
-//         console.log("sinh viên giỏi");
-//     } else {
-//         console.log("Sinh viên khá");
+let arrSinhVien = getLocalStorage();
+renderArrSinhVien();
 
-//     }
-// }
-
-// function hienThiThongBao(diemTrungBinh) {
-//     console.log(`điểm của thí sinh là: ${diemTrungBinh}`);
-// }
-// // tinhDiemTrungBinh(() => {
-// //     console.log("do ngoc");
-// // });
-
-// tinhDiemTrungBinh(xepLoaiSinhVien);
-// tinhDiemTrungBinh(hienThiThongBao);
-
-
-arrDienVien = ["Kim Chi", "Thanh Sang", "Vin Râu", "Cổ Thiên Lạc"];
-// console.log(arrDienVien);
-
-// function fakeMap(chucNang) {
-//     let newArrDienVien = [];
-//     for (let i = 0; i < arrDienVien.length; i++) {
-//         let newDienVien = chucNang(arrDienVien[i], i);
-//         newArrDienVien.push(newDienVien);
-//     }
-//     return newArrDienVien;
-// }
-
-// function phanLoaiDienVien(newDienVien) {
-//     return `Diễn viên: ${newDienVien}`
-// }
-
-// let newArrr = fakeMap((item, index) => {
-//     return `Diễn viên ${item}`
-// });
-// console.log(fakeMap(phanLoaiDienVien));
-
-// document.querySelector(".glowing-border").innerHTML += fakeMap(phanLoaiDienVien);
-
-
-let arrChampion = [
-    {
-        hoTen: "Garden",
-        tanCong: 9,
-        giap: 55,
-        khangPhep: 40
-    },
-    {
-        hoTen: "Kaisa",
-        tanCong: 80,
-        giap: 30,
-        khangPhep: 35
-    },
-    {
-        hoTen: "Jhin",
-        tanCong: 109,
-        giap: 35,
-        khangPhep: 3
+// Thêm sinh viên
+let formQLSV = document.getElementById("formQLSV");
+formQLSV.onsubmit = function (event) {
+    event.preventDefault();
+    let arrField = document.querySelectorAll("#formQLSV input, #formQLSV select");
+    let sinhVien = new SinhVien();
+    for (let field of arrField) {
+        //Destructuring
+        let { id, value } = field;
+        // let sv = sinhvien[field.id] = field.value;
+        // console.log(sv);
+        sinhVien[id] = value;
     }
-]
-
-
-function fakeFilter(chucnang) {
-    let newArrChampion = [];
-    for (let index in arrChampion) {
-        let isValid = chucnang(arrChampion[index], index);
-        if (isValid) {
-            newArrChampion.push(arrChampion[index]);
-        }
-    }
-    return newArrChampion;
-
+    arrSinhVien.push(sinhVien);
+    //Lưu trữ mảng đã được thêm phần tử
+    saveLocalStorage();
+    // console.log(arrSinhVien);
+    //Hiển thị dữ liệu từ mảng lên giao diện
+    renderArrSinhVien(arrSinhVien);
+    formQLSV.reset();
 }
 
-function kiemTraTanCong(item, index) {
-    //Kiểm tra nếu tấn công > 80 sẽ nhận vào mảng mới
-    return item.tanCong > 80;
+//Hiển thị  dữ liệu trong mảng lên giao diện
+function renderArrSinhVien(arr = arrSinhVien) {
+    let content = "";
+    for (let sinhVien of arr) {
+        let newSinhVien = new SinhVien();
+        Object.assign(newSinhVien, sinhVien);
+        //2 console cho ta thấy được sự khác nhau giữa Data load từ local lên bị mất đi phương thức tính điểm trung bình vì local storage ko lưu trữ phương thức
+        console.log(newSinhVien);
+        console.log(sinhVien);
+        let { txtMaSV, txtTenSV, txtEmail, txtNgaySinh, khSV } = newSinhVien;
+        let diemTrungBinh = newSinhVien.tinhDiemTrungBinh();
+        // console.log(sinhVien);
+        // Cách 1:  Gọi đến từng thuộc tính để fill dữ liệu VD: sinhvien.txtmaSV => sẽ gọi nhiều lần đối tượng sinh viên dẫn đến phải gõ đi gõ lại 1 biến k chuyên nghiệp)
+        //Cách 2: Bóc tách dữ liệu bằng destructuring: sẽ gọi thẳng đến thuộc tính đó trong Object, Dữ liệu sẽ dễ nhìn hơn và trông chuyên nghiêp hơn
+        //Destructuring sẽ tạo 1 biến mới trùng với tên thuộc tính trong lớp đối tượng 
+        //Riêng phương thức tinhDiemtrungbinh ko nên bóc tách vì nó là phương thức, bên trong còn có hàm, các con trỏ this tự kế thừa thuộc tính nên gán vào biến bóc tách bình thường sẽ dẫn đến lỗi hoặc ctrinh chạy sai.
+        //Hương xử lý: Chỉ nên tạo biến và hứng lại giá trị trả về từ phương thức đó của đối tượng SinhVien
+        content += `
+<tr>
+  <td>${txtMaSV}</td>
+  <td>${txtTenSV}</td>
+  <td>${txtEmail}</td>
+  <td>${txtNgaySinh}</td>
+  <td>${khSV}</td>
+  <td>${diemTrungBinh.toFixed(2)}</td>
+  <td><button class="btn btn-danger">Xóa</button>
+<button class="btn btn-warning">Sửa</button></td>
+</tr>`
+    }
+    document.getElementById("tbodySinhVien").innerHTML = content;
 }
 
 
-function kiemTraKhangPhep(item, index) {
-    //Kiểm tra nếu tấn công > 80 sẽ nhận vào mảng mới
-    return item.khangPhep > 30;
+// Thực hiện lưu trữ localStorage
+//Strick: truyền 2 tham số key và value. Với value là mảng arrSinhVien để khi gọi hàm , hàm đã có dữu liệu chạy , ko cần phải truyền tham số lung tung nửa
+
+function saveLocalStorage(key = "arrSinhVien", value = arrSinhVien) {
+    let stringJon = JSON.stringify(value);
+    localStorage.setItem(key, stringJon);
 }
 
 
-let newArrChampion = fakeFilter(kiemTraTanCong);
-console.log(newArrChampion);
+//Thực hiện lấy dữ liệu từ localStorage
+function getLocalStorage(key = "arrSinhVien") {
+    let dataLocal = localStorage.getItem(key);
+    let newDataLocal = JSON.parse(dataLocal);
+    return newDataLocal ? newDataLocal : [];
 
-let newChampion2 = fakeFilter(kiemTraTanCong);
-console.log(newChampion2);
-
-
-class XeHoi {
-    //thuộc tính
-    tenXe = "Merc S860";
-    loaiXe = "S-Class";
-    giaTien = "12000";
-    mauSac = "Trang";
-    // Khoi tao doi tuong bawng ham khoi tao
-    constructor(tenXe, loaiXe, giaTien, mauSac) {
-        // console.log(tenXe);
-        this.tenXe = tenXe;
-        this.loaiXe = loaiXe;
-    }
-    //Phuowng thuc
-    hienThiThongSoxe = function () {
-        console.log(`Loai xe ${this.tenXe} ban dang tim co ma ${this.mauSac} la loai ${this.loaiXe} co gia tien la: ${this.giaTien}`);
-    }
 }
-let xe860 = new XeHoi("G63", "G-Class");
-// console.log(xe860);
-xe860.hienThiThongSoxe();
+// getLocalStorage(); --> ko cần gọi bên dưới vì theo logic khi reload trang sẽ check xem bên dưới loca có data ko ,nếu có thì lấy nếu ko thì khởi tạo 1 mảng rỗng arrSinhVien 
 
 
 
 
+
+
+
+
+// //Tham trị lưu dễ dàng
+// localStorage.setItem("hoTen", "Bối Thạnh");
+
+// //Tham chiếu như dạng Object, khi lưu trực tiếp nó sẽ không biết kiểu dữ liệu như nào và trả vè [object object]
+
+// let sinhVienThanh = {
+//     hoTen: "Bối Thạnh",
+//     khoaHoc: "BCS12",
+//     namSinh: "1994",
+//     sDT: "0786010285"
+// }
+// let sinhvienThanhJson = JSON.stringify(sinhVienThanh);
+// localStorage.setItem("DATASVTHANH", sinhvienThanhJson);
+
+
+// let arrNumber = [21, 45, 33];
+
+// let arrNumberJson = JSON.stringify(arrNumber);
+// localStorage.setItem("arrNumber", arrNumberJson);
+
+
+// let localThanh = localStorage.getItem("DATASVTHANH");
+// let convertLocalThanh = JSON.parse(localThanh);
+// console.log(localThanh);
+
+// // Lấy dữ liệu từ local storage
+// let localArrnumber = localStorage.getItem("arrNumber");
+// let conVertArrNumber = JSON.parse(localArrnumber);
+// console.log(conVertArrNumber);
+
+
+// //Xóa local Storage
+// localStorage.removeItem("DATASVTHANH");
+// localStorage.removeItem("arrNumber");
+// localStorage.removeItem("KhoaHoc");
 
 
 
