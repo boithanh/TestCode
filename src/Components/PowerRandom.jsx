@@ -1,30 +1,16 @@
 import React, { useState } from 'react'
+import { generateRandomNumbers } from '../utils/utils';
 
-const PowerRandom = () => {
+const PowerRandom = ({ animate, runningAnimate }) => {
     const [power, setPower] = useState([]);
 
-    const generateRandomNumbersPower = () => {
-        const numbersSet = new Set();
-
-        while (numbersSet.size < 6) {
-            let randomNumber = Math.floor(Math.random() * 55) + 1;
-
-            if (randomNumber / 10 >= 1) {
-                numbersSet.add(randomNumber);
-            }
-            else {
-                randomNumber = '0' + randomNumber;
-                numbersSet.add(randomNumber);
-            }
-
-        }
-
-        setPower(Array.from(numbersSet));
-    };
     return (
         <div className='my-3'>
-            <button className='btn btn-outline-light mb-3' onClick={generateRandomNumbersPower}>Ấn để lấy số Power</button>
-            <h2 style={{ width: "350px", height: "100px" }}>{power.join(", ").toString()}</h2>
+            <button className='btn btn-outline-light mb-3' onClick={() => {
+                setPower(generateRandomNumbers(55));
+                runningAnimate(animate, 2);
+            }}>Ấn để lấy số Power</button>
+            <h2 className={`mt-3 mb-5 text-warning ${(animate == "xuatHien1" || animate == "xuatHien3" ? "" : "xuatHien2")}`}>{power.join(", ").toString()}</h2>
         </div>
     )
 }
