@@ -1,11 +1,9 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
 import MegaRandom from './Components/MegaRandom'
 import PowerRandom from './Components/PowerRandom'
 import DefaultLottery from './Components/DefaultLottery'
 import { useState } from 'react'
+import BloodPressure from './Components/BloodPressure'
 
 function App() {
   const [animate, setAnimate] = useState("xuatHien1");
@@ -15,7 +13,7 @@ function App() {
 
   return (
     <>
-      <div className="body_content min-vw-100 d-flex flex-column mb-5">
+      {/* <div className="body_content min-vw-100 d-flex flex-column mb-5">
         <div className='w-50 mx-auto'>
           <a href="https://vitejs.dev" target="_blank">
             <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -38,7 +36,8 @@ function App() {
             <DefaultLottery animate={animate} runningAnimate={runningAnimate} />
           </div>
         </div>
-      </div >
+      </div > */}
+      <BloodPressure />
     </>
   )
 }
