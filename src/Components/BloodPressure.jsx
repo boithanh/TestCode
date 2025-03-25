@@ -8,6 +8,8 @@ const BloodPressure = () => {
 
     function BloodPressureCheck(parameter) {
         let { tamTruong, tamThu } = parameter;
+        tamTruong *= 1;
+        tamThu *= 1;
         if (tamTruong < 115 && tamThu < 65) {
             setValueBlood("Huyết áp bình thường");
         } else if ((tamTruong >= 115 && tamTruong < 130) && (tamThu >= 65 && tamThu < 80)) {
@@ -16,11 +18,27 @@ const BloodPressure = () => {
             setValueBlood("Cao huyết áp");
         }
         else {
-            setValueBlood("Huyết áp kép cần theo dõi thêm");
+            if (tamTruong - tamThu < 50) {
+                switch (true) {
+                    case tamTruong < 115:
+                        setValueBlood("Huyết áp bình thường (Tâm thu lệch)");
+                        break;
+                    case tamTruong >= 115 && tamTruong < 130:
+                        setValueBlood("Tiền sử tăng huyết áp (Tâm thu lệch)");
+                        break;
+                    case tamTruong >= 130:
+                        setValueBlood("Tiền sử tăng huyết áp (Tâm thu lệch)");
+                        break;
+                    default:
+                        setValueBlood("Huyết áp bất định cần theo dõi thêm");
+                        break;
+                }
+            }
         }
     }
     function heartRateCheck(parameter) {
         let { nhipTim } = parameter;
+        nhipTim *= 1;
         if (nhipTim <= 60) {
             setValue("Nhịp tim chậm");
         } else if (nhipTim > 60 && nhipTim < 100) {
@@ -43,6 +61,7 @@ const BloodPressure = () => {
         onSubmit: (values) => {
             BloodPressureCheck(values);
             heartRateCheck(values);
+            formik.resetForm();
         }
     });
     return (
@@ -58,8 +77,8 @@ const BloodPressure = () => {
                         <div className='myShadow'>
                             <h5 className='p-2'>Chẩn đoán</h5>
                             <div className='pb-5'>
-                                <p>{valueBlood}</p>
-                                <p>{value}</p>
+                                <p className='mb-3'><i className="fa-solid fa-droplet text-warning fs-3 mx-3"></i>{valueBlood}</p>
+                                <p className='mb-3'><i className="fa-solid fa-heart text-danger fs-4 mx-3"></i>{value}</p>
                             </div>
                         </div>
                     </form>
