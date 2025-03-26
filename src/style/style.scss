@@ -18,6 +18,13 @@ body {
         font-family: "Pacifico", cursive;
         font-weight: 400;
         font-style: normal;
+        -moz-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
 
@@ -25,7 +32,6 @@ body {
         box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         padding: 10px 5px;
         margin-bottom: 30px;
-
         background-color: rgba(255, 158, 193, 0.3);
 
         p {
@@ -73,13 +79,13 @@ body {
         margin-bottom: 30px;
         position: relative;
         transition: 0.1s ease-in-out;
-        -moz-user-select: none !important;
-        -webkit-touch-callout: none !important;
-        -webkit-user-select: none !important;
-        -khtml-user-select: none !important;
-        -moz-user-select: none !important;
-        -ms-user-select: none !important;
-        user-select: none !important;
+        -moz-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         &:hover {
             box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -106,6 +112,13 @@ body {
         position: absolute;
         border-radius: 5px;
         transition: transform 0.3s ease-in-out;
+        -moz-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         &:hover {
             transform: translate(100%);
