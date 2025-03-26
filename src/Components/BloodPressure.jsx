@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import InputCustom from './InputCustom';
-import { createRandomSquares } from './../utils/utils'
+import createRandomSquares from './../utils/utils'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
@@ -92,7 +92,7 @@ const BloodPressure = () => {
                     </div>
                 </div>
             </div>
-            <div className='random-square'>{createRandomSquares(10)}</div>
+            <div className='random-square'>{createRandomSquares(1)}</div>
         </>
     )
 }

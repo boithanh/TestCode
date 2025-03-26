@@ -27,7 +27,7 @@ export const defaultLottery = () => {
 };
 
 
-export function createRandomSquares(count) {
+export default function createRandomSquares(count) {
     for (let i = 0; i < count; i++) {
         let square = document.createElement("div");
         square.classList.add("square");
@@ -56,8 +56,10 @@ export function createRandomSquares(count) {
     }
 }
 
-// // Lắng nghe sự kiện resize để tạo lại khối vuông khi thay đổi kích thước màn hình
-// window.addEventListener("resize", () => {
-//     document.querySelector(".test").innerHTML = ""; // Xóa các khối vuông cũ
-//     createRandomSquares(20);
-// });
+// Lắng nghe sự kiện resize để tạo lại khối vuông khi thay đổi kích thước màn hình
+window.addEventListener("resize", () => {
+    const container = document.querySelector(".random-square");
+    if (container) {
+        container.innerHTML = ""; // Xóa các ô vuông cũ nhưng giữ nguyên phần còn lại
+    }
+});
