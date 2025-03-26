@@ -25,3 +25,39 @@ export const defaultLottery = () => {
     }
     return numbersSet;
 };
+
+
+export function createRandomSquares(count) {
+    for (let i = 0; i < count; i++) {
+        let square = document.createElement("div");
+        square.classList.add("square");
+
+        let size = Math.random() * 50 + 30; // Kích thước từ 30px - 80px
+        let x = Math.random() * window.innerWidth;
+        let y = Math.random() * window.innerHeight;
+
+        let borderRadius = Math.random() * 30; // Bo góc từ 0 - 30px
+        let blurAmount = Math.random() * 10 + 2; // Độ mờ từ 2px - 12px
+        let shadowOpacity = Math.random() * 0.5 + 0.1; // Độ trong suốt của box-shadow
+        let backgroundOpacity = Math.random() * 0.5 + 0.2; // Độ trong suốt của background
+
+        square.style.width = `${size}px`;
+        square.style.height = `${size}px`;
+        square.style.left = `${x}px`;
+        square.style.top = `${y}px`;
+
+        square.style.background = `rgba(255, 255, 255, ${backgroundOpacity})`;
+        square.style.borderRadius = `${borderRadius}px`;
+        square.style.boxShadow = `0 4px 30px rgba(0, 0, 0, ${shadowOpacity})`;
+        square.style.backdropFilter = `blur(${blurAmount}px)`;
+        square.style.border = `1px solid rgba(255, 255, 255, 0.3)`;
+
+        document.body.appendChild(square);
+    }
+}
+
+// // Lắng nghe sự kiện resize để tạo lại khối vuông khi thay đổi kích thước màn hình
+// window.addEventListener("resize", () => {
+//     document.querySelector(".test").innerHTML = ""; // Xóa các khối vuông cũ
+//     createRandomSquares(20);
+// });

@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import InputCustom from './InputCustom';
+import { createRandomSquares } from './../utils/utils'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
@@ -65,29 +66,34 @@ const BloodPressure = () => {
         }
     });
     return (
-        <div className='container'>
-            <div className="row">
-                <h1 className='fs-10 mb-4 p-2 text-center mb-3'>Kiểm tra thông số huyết áp</h1>
-                <div className='col-xl-3 mx-auto'>
-                    <form onSubmit={formik.handleSubmit}>
-                        <InputCustom labelContent={"Nhập huyết áp tâm trương"} smallContent={"Là số lớn và thường nằm trước trong kết quả đo"} id={"tamTruong"} name={"tamTruong"} onChange={formik.handleChange} value={formik.values.tamTruong} />
-                        <InputCustom labelContent={"Nhập huyết áp tâm thu"} smallContent={"Là số nhỏ, thường nằm sau"} id={"tamThu"} name={"tamThu"} onChange={formik.handleChange} value={formik.values.tamThu} />
-                        <InputCustom labelContent={"Nhập nhịp tim"} smallContent={"Nhịp tim đo được của thiết bị đo"} id={"nhipTim"} name={"nhipTim"} onChange={formik.handleChange} value={formik.values.nhipTim} />
-                        <div className='text-center mb-4'><button type='submit' className='btn btn-outline-dark w-100'>Kiểm tra</button></div>
-                        <div className='myShadow'>
-                            <h5 className='p-2'>Chẩn đoán</h5>
-                            <div className='pb-5'>
-                                <p className='mb-3'><i className="fa-solid fa-droplet text-warning fs-3 mx-3"></i>{valueBlood}</p>
-                                <p className='mb-3'><i className="fa-solid fa-heart text-danger fs-4 mx-3"></i>{value}</p>
+        <>
+            <div className='container'>
+                <div className="row">
+                    <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>
+                    <div className='col-xl-5 mx-auto'>
+                        <div className='form-container glass-morphism'>
+                            <form onSubmit={formik.handleSubmit}>
+                                <InputCustom labelContent={"Nhập huyết áp tâm trương"} smallContent={"Là số lớn và thường nằm trước trong kết quả đo"} id={"tamTruong"} name={"tamTruong"} onChange={formik.handleChange} value={formik.values.tamTruong} />
+                                <InputCustom labelContent={"Nhập huyết áp tâm thu"} smallContent={"Là số nhỏ, thường nằm sau"} id={"tamThu"} name={"tamThu"} onChange={formik.handleChange} value={formik.values.tamThu} />
+                                <InputCustom labelContent={"Nhập nhịp tim"} smallContent={"Nhịp tim đo được của thiết bị đo"} id={"nhipTim"} name={"nhipTim"} onChange={formik.handleChange} value={formik.values.nhipTim} />
+                                <div className='text-center mb-4'><button type='submit' className='btn btn-outline-dark w-100'>Kiểm tra</button></div>
+                                <div className='myShadow'>
+                                    <h5 className='p-2'>Chẩn đoán</h5>
+                                    <div className='pb-5'>
+                                        <p className='mb-3'><i className="fa-solid fa-droplet text-warning fs-3 mx-3 mb-3"></i>{valueBlood}</p>
+                                        <p className='mb-3'><i className="fa-solid fa-heart text-danger fs-4 mx-3 mb-3"></i>{value}</p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div className='note'>
+                                <p>*** Lưu ý: Chẩn đoán chỉ mang tính tham khảo và kết quả đo tại nhà thường có sai số, nếu kết quả đo bất thường trên 2 lần hoặc huyết áp bất thường vui lòng đến trạm y tế hoặc bệnh viện gần nhất để được thăm khám kịp thời</p>
                             </div>
                         </div>
-                    </form>
-                    <div className='note'>
-                        <p>*** Lưu ý: Chẩn đoán chỉ mang tính tham khảo và kết quả đo tại nhà thường có sai số, nếu kết quả đo bất thường trên 2 lần hoặc huyết áp bất thường vui lòng đến trạm y tế hoặc bệnh viện gần nhất để được thăm khám kịp thời</p>
                     </div>
                 </div>
             </div>
-        </div>
+            <div className='random-square'>{createRandomSquares(31)}</div>
+        </>
     )
 }
 
