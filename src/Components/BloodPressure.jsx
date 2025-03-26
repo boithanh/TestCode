@@ -92,7 +92,7 @@ const BloodPressure = () => {
                     </div>
                 </div>
             </div>
-            <div className='random-square'>{createRandomSquares(31)}</div>
+            <div className='random-square'>{createRandomSquares(10)}</div>
         </>
     )
 }
