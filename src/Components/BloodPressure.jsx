@@ -1,11 +1,16 @@
 import { useFormik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputCustom from './InputCustom';
 import createRandomSquares from './../utils/utils'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
     const [valueBlood, setValueBlood] = useState("");
+    const [squares, setSquares] = useState([]);
+
+    useEffect(() => {
+        setSquares(createRandomSquares(10)); // Chỉ chạy 1 lần khi component mount
+    }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
     function BloodPressureCheck(parameter) {
         let { tamTruong, tamThu } = parameter;
@@ -92,7 +97,7 @@ const BloodPressure = () => {
                     </div>
                 </div>
             </div>
-            <div className='random-square'>{createRandomSquares(1)}</div>
+            <div className='random-square'>{squares}</div>
         </>
     )
 }
