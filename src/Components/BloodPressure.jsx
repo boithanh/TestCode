@@ -2,6 +2,7 @@ import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import InputCustom from './InputCustom';
 import createRandomSquares from './../utils/utils'
+import * as yup from 'yup'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
@@ -16,29 +17,46 @@ const BloodPressure = () => {
         let { tamTruong, tamThu } = parameter;
         tamTruong *= 1;
         tamThu *= 1;
-        if (tamTruong < 115 && tamThu < 65) {
+
+        if ((tamThu < 115 && tamThu >= 90) && (tamTruong < 65 && tamTruong >= 60)) {
             setValueBlood("Huyết áp bình thường");
-        } else if ((tamTruong >= 115 && tamTruong < 130) && (tamThu >= 65 && tamThu < 80)) {
+        }
+        else if ((tamThu < 90 && tamThu > 70) && (tamTruong < 60 && tamTruong > 40)) {
+            setValueBlood("Huyết áp thấp");
+        }
+        else if (tamThu <= 70 && tamTruong <= 40) {
+            setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
+        }
+        else if ((tamThu >= 115 && tamThu < 130) && (tamTruong >= 65 && tamTruong < 80)) {
             setValueBlood("Tiền sử tăng huyết áp");
-        } else if (tamTruong >= 130 && tamThu >= 80) {
+        } else if (tamThu >= 130 && tamTruong >= 80) {
             setValueBlood("Cao huyết áp");
         }
         else {
-            if (tamTruong - tamThu < 50) {
+            if (tamThu - tamTruong != 50 && tamThu - tamTruong > 20) {
                 switch (true) {
-                    case tamTruong < 115:
+                    case tamThu < 90 && tamThu >= 70:
+                        setValueBlood("Huyết áp ấp (Tâm thu lệch)");
+                        break;
+                    case tamThu < 70 && tamThu >= 40:
+                        setValueBlood("Huyết áp ấp cực thấp, nguy hiểm !!! (Tâm thu lệch)");
+                        break;
+                    case tamThu < 115 && tamThu >= 90:
                         setValueBlood("Huyết áp bình thường (Tâm thu lệch)");
                         break;
-                    case tamTruong >= 115 && tamTruong < 130:
+                    case tamThu >= 115 && tamThu < 130:
                         setValueBlood("Tiền sử tăng huyết áp (Tâm thu lệch)");
                         break;
-                    case tamTruong >= 130:
+                    case tamThu >= 130:
                         setValueBlood("Tiền sử tăng huyết áp (Tâm thu lệch)");
                         break;
                     default:
                         setValueBlood("Huyết áp bất định cần theo dõi thêm");
                         break;
                 }
+            }
+            else {
+                setValueBlood("Huyết áp kẹp, nguy hiểm, cần đến bệnh viện ngay!!!");
             }
         }
     }
@@ -57,19 +75,31 @@ const BloodPressure = () => {
             setValue("Nhịp tim bất ổn");
         }
     }
-
-    const formik = useFormik({
+    // có thể ghi const formik = useformik ({}) hoặc bóc tách ra luôn để sử dụng các thuộc tính bên trong của formik
+    //Trường hợp layout đến từ bên tứ 3 (forbite, antDesign) ko có hỗ trợ thuộc tính như name trong input thì dung setFieldValue để khắc phục
+    const { handleSubmit, handleChange, values, setFieldValue, errors, handleBlur, touched, resetForm } = useFormik({
         initialValues: {
-            tamTruong: "",
             tamThu: "",
+            tamTruong: "",
             nhipTim: ""
         },
         onSubmit: (values) => {
             BloodPressureCheck(values);
             heartRateCheck(values);
-            formik.resetForm();
-        }
+            resetForm();
+        },
+        validationSchema: yup.object({
+            tamThu: yup.string().required("Vui lòng không bỏ trống Tâm Thu").matches(/^(?:[5-9][1-9]|1\d{2})$/, "Vui lòng nhập số và phải hợp lệ [51-199]"),
+            tamTruong: yup.string().required("Vui lòng không bỏ trống tâm trương").matches(/^(?:4[1-9]|[5-9]\d|1[01]\d)$/, "Vui lòng nhập số và phải hợp lệ [41-119]"),
+            nhipTim: yup.string().required("Vui lòng không bỏ trống nhịp tim").matches(/^(?:3[1-9]|[4-9]\d|[12]\d{2})$/, "Vui lòng nhập số và phải hợp lệ [31 đến 299]")
+        })
+
     });
+
+    console.log(errors);
+    // console.log(touched);
+
+
     return (
         <>
             <div className='container'>
@@ -77,10 +107,13 @@ const BloodPressure = () => {
                     <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>
                     <div className='col-xl-5 mx-auto'>
                         <div className='form-container glass-morphism'>
-                            <form onSubmit={formik.handleSubmit}>
-                                <InputCustom labelContent={"Nhập huyết áp tâm trương"} smallContent={"Là số lớn và thường nằm trước trong kết quả đo"} id={"tamTruong"} name={"tamTruong"} onChange={formik.handleChange} value={formik.values.tamTruong} />
-                                <InputCustom labelContent={"Nhập huyết áp tâm thu"} smallContent={"Là số nhỏ, thường nằm sau"} id={"tamThu"} name={"tamThu"} onChange={formik.handleChange} value={formik.values.tamThu} />
-                                <InputCustom labelContent={"Nhập nhịp tim"} smallContent={"Nhịp tim đo được của thiết bị đo"} id={"nhipTim"} name={"nhipTim"} onChange={formik.handleChange} value={formik.values.nhipTim} />
+                            <form onSubmit={handleSubmit}>
+                                <InputCustom labelContent={"Nhập huyết áp tâm thu"} smallContent={"Là số lớn, thường nằm trước"} id={"tamThu"} name={"tamThu"} onChange={handleChange} value={values.tamThu} onBlur={handleBlur} error={errors.tamThu} touched={touched.tamThu} />
+
+                                <InputCustom labelContent={"Nhập huyết áp tâm trương"} smallContent={"Là số nhỏ, nằm sau và không vượt quá 100"} id={"tamTruong"} name={"tamTruong"} onChange={handleChange} value={values.tamTruong} onBlur={handleBlur} error={errors.tamTruong} touched={touched.tamTruong} />
+
+                                <InputCustom labelContent={"Nhập nhịp tim"} smallContent={"Nhịp tim đo được của thiết bị đo"} id={"nhipTim"} name={"nhipTim"} onChange={handleChange} value={values.nhipTim} onBlur={handleBlur} error={errors.nhipTim} touched={touched.nhipTim} />
+
                                 <div className='text-center mb-4'><button type='submit' className='btn btn-outline-dark w-100'>Kiểm tra</button></div>
                                 <div className='myShadow'>
                                     <h5 className='p-2'>Chẩn đoán</h5>

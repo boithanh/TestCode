@@ -26,7 +26,7 @@ body {
 
     .myShadow {
         box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-        padding: 10px 5px;
+        padding: 15px 20px;
         margin-bottom: 30px;
         background-color: rgba(255, 158, 193, 0.3);
 
@@ -60,10 +60,25 @@ body {
         }
     }
 
-    .form-control:focus {
-        outline: none;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        border: 1px solid #dee2e6;
+    .form-control {
+        &::placeholder {
+            color: red;
+            font-size: 13px;
+            padding-left: 0;
+            transition: .5s all;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border: 1px solid #dee2e6;
+
+            &::placeholder {
+                padding-left: 15px;
+            }
+        }
+
+
     }
 
     .form-container {
