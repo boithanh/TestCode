@@ -8,63 +8,76 @@ const BloodPressure = () => {
     const [value, setValue] = useState("");
     const [valueBlood, setValueBlood] = useState("");
     const [squares, setSquares] = useState([]);
+    const [hieuAp, setHieuAp] = useState("");
+    const [icon, setIcon] = useState(false);
+
 
     useEffect(() => {
         setSquares(createRandomSquares(10)); // Chỉ chạy 1 lần khi component mount
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
-    function BloodPressureCheck(parameter) {
-        let { tamTruong, tamThu } = parameter;
-        tamTruong *= 1;
-        tamThu *= 1;
-
-        if ((tamThu < 115 && tamThu >= 90) && (tamTruong < 65 && tamTruong >= 60)) {
-            setValueBlood("Huyết áp bình thường");
+    //Kiểm tra tâm thu và tâm trương
+    function systolicAndDiastolicCheck(tamThu, tamTruong) {
+        if (tamThu <= 70 && tamTruong <= 40) {
+            setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
         }
         else if ((tamThu < 90 && tamThu > 70) && (tamTruong < 60 && tamTruong > 40)) {
             setValueBlood("Huyết áp thấp");
         }
-        else if (tamThu <= 70 && tamTruong <= 40) {
-            setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
+        else if ((tamThu < 115 && tamThu >= 90) && (tamTruong < 65 && tamTruong >= 60)) {
+            setValueBlood("Huyết áp bình thường");
         }
+
         else if ((tamThu >= 115 && tamThu < 130) && (tamTruong >= 65 && tamTruong < 80)) {
             setValueBlood("Tiền sử tăng huyết áp");
-        } else if (tamThu >= 130 && tamTruong >= 80) {
+        } else {
             setValueBlood("Cao huyết áp");
         }
+
+    }
+
+    //Chỉ kiểm tra tâm thu
+    function systolicCheckOnly(tamThu) {
+        if (tamThu <= 70) {
+            setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
+        }
+        else if (tamThu < 90 && tamThu > 70) {
+            setValueBlood("Huyết áp thấp");
+        }
+        else if (tamThu < 115 && tamThu >= 90) {
+            setValueBlood("Huyết áp bình thường");
+        }
+
+        else if (tamThu >= 115 && tamThu < 130) {
+            setValueBlood("Tiền sử tăng huyết áp");
+        } else {
+            setValueBlood("Cao huyết áp");
+        }
+
+    }
+
+    function BloodPressureCheck(parameter) {
+        let { tamTruong, tamThu } = parameter;
+        tamThu *= 1;
+        tamTruong *= 1;
+        if (tamThu - tamTruong >= 40 && tamThu - tamTruong <= 60) {
+            systolicAndDiastolicCheck(tamThu, tamTruong);
+            setHieuAp("Hiệu áp bình thường");
+        }
+        else if (tamThu - tamTruong >= 30 && tamThu - tamTruong < 40) {
+            systolicCheckOnly(tamThu);
+            setHieuAp("Hiệu áp có vẻ hẹp, cần theo dõi sát sao");
+        }
         else {
-            if (tamThu - tamTruong != 50 && tamThu - tamTruong > 20) {
-                switch (true) {
-                    case tamThu < 90 && tamThu >= 70:
-                        setValueBlood("Huyết áp ấp (Tâm thu lệch)");
-                        break;
-                    case tamThu < 70 && tamThu >= 40:
-                        setValueBlood("Huyết áp ấp cực thấp, nguy hiểm !!! (Tâm thu lệch)");
-                        break;
-                    case tamThu < 115 && tamThu >= 90:
-                        setValueBlood("Huyết áp bình thường (Tâm thu lệch)");
-                        break;
-                    case tamThu >= 115 && tamThu < 130:
-                        setValueBlood("Tiền sử tăng huyết áp (Tâm thu lệch)");
-                        break;
-                    case tamThu >= 130:
-                        setValueBlood("Tiền sử tăng huyết áp (Tâm thu lệch)");
-                        break;
-                    default:
-                        setValueBlood("Huyết áp bất định cần theo dõi thêm");
-                        break;
-                }
-            }
-            else {
-                setValueBlood("Huyết áp kẹp, nguy hiểm, cần đến bệnh viện ngay!!!");
-            }
+            systolicCheckOnly(tamThu);
+            setHieuAp("Hiệu áp hẹp, nguy hiểm cần đến bệnh viện");
         }
     }
     function heartRateCheck(parameter) {
         let { nhipTim } = parameter;
         nhipTim *= 1;
         if (nhipTim <= 60) {
-            setValue("Nhịp tim chậm");
+            setValue(`Nhịp tim chậm`);
         } else if (nhipTim > 60 && nhipTim < 100) {
             setValue("Nhịp tim bình thường");
         }
@@ -86,6 +99,7 @@ const BloodPressure = () => {
         onSubmit: (values) => {
             BloodPressureCheck(values);
             heartRateCheck(values);
+            setIcon(true);
             resetForm();
         },
         validationSchema: yup.object({
@@ -96,10 +110,8 @@ const BloodPressure = () => {
 
     });
 
-    console.log(errors);
+    // console.log(errors);
     // console.log(touched);
-
-
     return (
         <>
             <div className='container'>
@@ -118,8 +130,9 @@ const BloodPressure = () => {
                                 <div className='myShadow'>
                                     <h5 className='p-2'>Chẩn đoán</h5>
                                     <div className='pb-5'>
-                                        <p className='mb-3'><i className="fa-solid fa-droplet text-warning fs-3 mx-3 mb-3"></i>{valueBlood}</p>
-                                        <p className='mb-3'><i className="fa-solid fa-heart text-danger fs-4 mx-3 mb-3"></i>{value}</p>
+                                        <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-droplet text-warning fs-3 mx-3`}></i>{valueBlood}</p>
+                                        <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-user text-primary fs-3 mx-3`}></i>{hieuAp}</p>
+                                        <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-heart text-danger fs-4 mx-3`}></i>{value}</p>
                                     </div>
                                 </div>
                             </form>

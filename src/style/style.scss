@@ -47,6 +47,8 @@ body {
         }
 
         i {
+            line-height: 12px;
+
             @media screen and (max-width:292px) {
                 display: block;
                 text-align: center;
