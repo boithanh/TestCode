@@ -19,15 +19,15 @@ const arrNavlink = [
     },
     {
         to: path.randomDefaultLottery,
-        content: "Lấy số kiến thiết ngẫu nhiên"
+        content: "Default Random (kiến thiết)"
     },
     {
         to: path.randomMega,
-        content: "Lấy số Mega ngẫu nhiên"
+        content: "MegaRandom"
     },
     {
         to: path.randomPower,
-        content: "Lấy số Power ngẫu nhiên"
+        content: "PowerRandom"
     }
 ]
 
@@ -40,15 +40,14 @@ const HomeTemplate = () => {
         <Layout className="vh-100 vw-100">
             <Header style={{ display: 'flex', alignItems: 'center' }}>
                 <div className="demo-logo" />
-                {/* {arrNavlink.map((item, index) => {
+                {arrNavlink.map((item, index) => {
                     return (
                         <NavLink to={item.to} className={({ isActive, isPending }) => {
-                            return `mx-3 ${isActive ? "text-danger" : "text-primary"}`
+                            return `mx-2 ${isActive ? "text-dark btn btn-light" : "text-light"}`
                         }}>{item.content}</NavLink>
                     )
                 })
-                } */}
-                <p className='text-white fs-4'>Welcome to app panel</p>
+                }
             </Header>
             <Content style={{ padding: '0 48px' }}>
                 {/* <Breadcrumb style={{ margin: '16px 0' }}>
