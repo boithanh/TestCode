@@ -31,7 +31,7 @@ const BloodPressure = () => {
         else if ((tamThu >= 115 && tamThu < 130) && (tamTruong >= 65 && tamTruong < 80)) {
             setValueBlood("Tiền sử tăng huyết áp");
         } else {
-            setValueBlood("Cao huyết áp");
+            systolicCheckOnly(tamThu);
         }
 
     }
@@ -56,17 +56,24 @@ const BloodPressure = () => {
 
     }
 
+    function calculatePulsePressure(tamThu, tamTruong) {
+        return (tamThu * 1) - (tamTruong * 1)
+    }
+
     function BloodPressureCheck(parameter) {
         let { tamTruong, tamThu } = parameter;
-        tamThu *= 1;
-        tamTruong *= 1;
-        if (tamThu - tamTruong >= 40 && tamThu - tamTruong <= 60) {
+        let hA = calculatePulsePressure(tamThu, tamTruong);
+        if (hA >= 40 && hA <= 60) {
             systolicAndDiastolicCheck(tamThu, tamTruong);
             setHieuAp("Hiệu áp bình thường");
         }
-        else if (tamThu - tamTruong >= 30 && tamThu - tamTruong < 40) {
+        else if (hA >= 35 && hA < 40) {
             systolicCheckOnly(tamThu);
-            setHieuAp("Hiệu áp có vẻ hẹp, cần theo dõi sát sao");
+            setHieuAp("Hiệu áp có vẻ hơi hẹp, nhưng không đáng lo ngại. Thông số này nằm trong giới hạn bình thường đối với một số người");
+        }
+        else if (hA >= 26 && hA < 35) {
+            systolicCheckOnly(tamThu);
+            setHieuAp("Hiệu áp hẹp đáng kể, Có thể liên quan đến suy tim, sốc tim, hoặc hẹp động mạch chủ, dẫn đến giảm cung cấp máu đến các cơ quan. Nếu gặp triệu chứng như chóng mặt, mệt mỏi, khó thở, hoặc lạnh tay chân (do thiếu oxy đến mô) vui lòng đến cơ sở y tế gần nhất để được điều trị kịp thời");
         }
         else {
             systolicCheckOnly(tamThu);
@@ -137,7 +144,7 @@ const BloodPressure = () => {
                                 </div>
                             </form>
                             <div className='note'>
-                                <p>*** Lưu ý: Chẩn đoán chỉ mang tính tham khảo và kết quả đo tại nhà thường có sai số, nếu kết quả đo bất thường trên 2 lần hoặc huyết áp bất thường vui lòng đến trạm y tế hoặc bệnh viện gần nhất để được thăm khám kịp thời</p>
+                                <p>*** Lưu ý: Đo tại nhà thường có sai số, nếu kết quả đo bất thường trên 2 lần hoặc huyết áp bất thường vui lòng đến trạm y tế hoặc bệnh viện gần nhất để được thăm khám kịp thời</p>
                             </div>
                         </div>
                     </div>
