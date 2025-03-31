@@ -5,11 +5,12 @@
 }
 
 body {
-    background: linear-gradient(to top, #a18cd1, #fbc2eb);
     font-family: "Quicksand", sans-serif;
     overflow-x: hidden;
 
     .blood-pressure {
+        background: linear-gradient(to top, #a18cd1, #fbc2eb);
+
         h1 {
             font-family: "Pacifico", cursive;
             font-weight: 400;
@@ -141,5 +142,11 @@ body {
                 transform: translate(100%);
             }
         }
+    }
+}
+
+.card-body {
+    p {
+        line-height: 0;
     }
 }

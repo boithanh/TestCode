@@ -1,8 +1,10 @@
 import { useFormik } from 'formik'
 import React, { useEffect, useRef, useState } from 'react'
-import InputCustom from './InputCustom';
 import createRandomSquares from './../utils/utils'
+import InputCustom from './../hooks/InputCustom'
 import * as yup from 'yup'
+import { Link } from 'react-router-dom'
+import { path } from '../common/path'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
@@ -124,6 +126,9 @@ const BloodPressure = () => {
     // console.log(touched);
     return (
         <>
+            <div className='position-absolute z-3'>
+
+                <Link to={path.homePage} className='btn'><i className="fa-solid fa-circle-arrow-left fs-2 lh-0" /></Link></div>
             <div className='container-fluid blood-pressure'>
                 <div className="row">
                     <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>

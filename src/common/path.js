@@ -1,6 +1,8 @@
 export const path = {
     homePage: "/",
     bloodPressure: "blood-pressure",
-    randomLottery: "/random-lottery",
+    randomDefaultLottery: "/random-default-lottery",
+    randomMega: "/random-mega",
+    randomPower: "/random-power",
     pageNotFound: "*"
 }

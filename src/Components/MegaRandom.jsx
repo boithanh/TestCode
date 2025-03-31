@@ -8,12 +8,16 @@ const MegaRandom = ({ animate, runningAnimate }) => {
 
 
     return (
-        <div className='my-3'>
-            <button className='btn btn-outline-light mb-3' onClick={() => {
-                setNumbers(generateRandomNumbers(45));
-                runningAnimate(animate, 1);
-            }}>Ấn để lấy số Mega</button>
-            <h2 className={` mt-3 mb-5 text-danger ${(animate == "xuatHien2" || animate == "xuatHien3" ? "" : "xuatHien1")}`}>{numbers.join(", ").toString()}</h2>
+        <div className="card mx-auto" style={{ width: '18rem' }}>
+            <img src="./../../lottery_2.png" className="card-img-top" alt="err" />
+            <div className="card-body">
+                <h5 className="card-title">Random Mega 6/45 👇</h5>
+                <p className="card-text p-4 border border-1 border-dark bold fw-bold">{numbers.join(", ").toString()}</p>
+                <button className='btn btn-danger mb-3' onClick={() => {
+                    setNumbers(generateRandomNumbers(45));
+                    runningAnimate(animate, 1);
+                }}>Ấn để lấy số Mega</button>
+            </div>
         </div>
     )
 }

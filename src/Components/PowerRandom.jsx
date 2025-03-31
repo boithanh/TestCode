@@ -5,12 +5,16 @@ const PowerRandom = ({ animate, runningAnimate }) => {
     const [power, setPower] = useState([]);
 
     return (
-        <div className='my-3'>
-            <button className='btn btn-outline-light mb-3' onClick={() => {
-                setPower(generateRandomNumbers(55));
-                runningAnimate(animate, 2);
-            }}>Ấn để lấy số Power</button>
-            <h2 className={`mt-3 mb-5 text-warning ${(animate == "xuatHien1" || animate == "xuatHien3" ? "" : "xuatHien2")}`}>{power.join(", ").toString()}</h2>
+        <div className="card mx-auto" style={{ width: '18rem' }}>
+            <img src="./../../lottery_3.png" className="card-img-top" alt="err" />
+            <div className="card-body">
+                <h5 className="card-title">Random Power 6/55 👇</h5>
+                <p className="card-text p-4 border border-1 border-dark bold fw-bold">{power.join(", ").toString()}</p>
+                <button className='btn btn-primary mb-3' onClick={() => {
+                    setPower(generateRandomNumbers(55));
+                    runningAnimate(animate, 2);
+                }}>Ấn để lấy số Power</button>
+            </div>
         </div>
     )
 }

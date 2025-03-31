@@ -7,6 +7,9 @@ const BloodPressure = React.lazy(() => import('../Components/BloodPressure'))
 import { path } from '../common/path'
 import DefaultLottery from '../Components/DefaultLottery'
 import { Skeleton } from 'antd'
+import MegaRandom from '../Components/MegaRandom'
+import PowerRandom from '../Components/PowerRandom'
+import Carousel from '../Components/Carousel'
 
 const useRouteCustom = () => {
     const elements = useRoutes([
@@ -15,8 +18,20 @@ const useRouteCustom = () => {
             element: <HomeTemplate />,
             children: [
                 {
-                    path: path.randomLottery,
+                    index: true,
+                    element: <Carousel />
+                },
+                {
+                    path: path.randomDefaultLottery,
                     element: <DefaultLottery />
+                },
+                {
+                    path: path.randomMega,
+                    element: <MegaRandom />
+                },
+                {
+                    path: path.randomPower,
+                    element: <PowerRandom />
                 }
             ]
         },
