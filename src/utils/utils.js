@@ -28,10 +28,7 @@ export const defaultLottery = () => {
 
 
 export default function createRandomSquares(count) {
-    for (let i = 0; i < count; i++) {
-        let square = document.createElement("div");
-        square.classList.add("square");
-
+    const htmlArr = Array.from({ length: count }).map((_, i) => {
         let size = Math.random() * 50 + 30; // Kích thước từ 30px - 80px
         let x = Math.random() * window.innerWidth;
         let y = Math.random() * window.innerHeight;
@@ -41,17 +38,23 @@ export default function createRandomSquares(count) {
         let shadowOpacity = Math.random() * 0.5 + 0.1; // Độ trong suốt của box-shadow
         let backgroundOpacity = Math.random() * 0.5 + 0.2; // Độ trong suốt của background
 
-        square.style.width = `${size}px`;
-        square.style.height = `${size}px`;
-        square.style.left = `${x}px`;
-        square.style.top = `${y}px`;
+        return `
+            <div class="square"
+                style="
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, ${backgroundOpacity});
+                    border-radius: ${borderRadius}px;
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, ${shadowOpacity});
+                    backdrop-filter: blur(${blurAmount}px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    position: absolute;
+                ">
+            </div>`;
+    });
 
-        square.style.background = `rgba(255, 255, 255, ${backgroundOpacity})`;
-        square.style.borderRadius = `${borderRadius}px`;
-        square.style.boxShadow = `0 4px 30px rgba(0, 0, 0, ${shadowOpacity})`;
-        square.style.backdropFilter = `blur(${blurAmount}px)`;
-        square.style.border = `1px solid rgba(255, 255, 255, 0.3)`;
-
-        document.body.appendChild(square);
-    }
+    return htmlArr.join(""); // Trả về string HTML
 }
+

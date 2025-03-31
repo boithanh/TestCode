@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import InputCustom from './InputCustom';
 import createRandomSquares from './../utils/utils'
 import * as yup from 'yup'
@@ -10,10 +10,13 @@ const BloodPressure = () => {
     const [squares, setSquares] = useState([]);
     const [hieuAp, setHieuAp] = useState("");
     const [icon, setIcon] = useState(false);
+    const containerRef = useRef(null); // Tạo ref cho div chứa HTML
 
 
     useEffect(() => {
-        setSquares(createRandomSquares(10)); // Chỉ chạy 1 lần khi component mount
+        if (containerRef.current) {
+            containerRef.current.innerHTML = createRandomSquares(10); // Thêm HTML vào DOM
+        }
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
     //Kiểm tra tâm thu và tâm trương
@@ -121,7 +124,7 @@ const BloodPressure = () => {
     // console.log(touched);
     return (
         <>
-            <div className='container'>
+            <div className='container-fluid blood-pressure'>
                 <div className="row">
                     <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>
                     <div className='col-xl-5 mx-auto'>
@@ -149,8 +152,8 @@ const BloodPressure = () => {
                         </div>
                     </div>
                 </div>
+                <div className='random-square' ref={containerRef}></div>
             </div>
-            <div className='random-square'>{squares}</div>
         </>
     )
 }

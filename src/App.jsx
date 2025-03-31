@@ -2,14 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MegaRandom from './Components/MegaRandom'
 import PowerRandom from './Components/PowerRandom'
 import DefaultLottery from './Components/DefaultLottery'
-import { useState } from 'react'
-import BloodPressure from './Components/BloodPressure'
+import useRouteCustom from './hooks/UseRouteCustom'
 function App() {
-  return (
-    <>
-      <BloodPressure />
-    </>
-  )
+  const routes = useRouteCustom();
+  return routes;
 }
 
 export default App

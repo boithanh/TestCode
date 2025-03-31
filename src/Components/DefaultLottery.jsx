@@ -6,7 +6,7 @@ const DefaultLottery = ({ animate, runningAnimate }) => {
 
 
     return (
-        <div className='my-3'>
+        <div className='my-3 bg-danger'>
             <button className='btn btn-outline-light mb-3' onClick={() => {
                 setNumberDefault(defaultLottery());
                 runningAnimate(animate, 3);
