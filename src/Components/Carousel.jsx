@@ -8,7 +8,7 @@ import { path } from '../common/path';
 
 const Carousel = () => {
     const slides = [
-        { id: 1, title: "Kiểm tra huyết áp", image: "./../../colourful_watercolour_splatte.jpg", link: path.bloodPressure },
+        { id: 1, title: "Kiểm tra huyết áp", image: "./../../blood-pressure-funny.png", link: path.bloodPressure },
         { id: 1, title: "Random vé số kiến thiết", image: "./../../lottery_1.png", link: path.randomDefaultLottery },
         { id: 2, title: "Random Mega 6/45", image: "./../../lottery_2.png", link: path.randomMega },
         { id: 3, title: "Random Power 6/55", image: "./../../lottery_3.png", link: path.randomPower },
