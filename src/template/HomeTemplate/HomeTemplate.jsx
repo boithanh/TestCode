@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
 import { path } from '../../common/path';
+import MobileMenu from '../../Components/MobileMenu';
+import { useMediaQuery } from 'react-responsive';
 const { Header, Content, Footer } = Layout;
-// const items = Array.from({ length: 15 }).map((_, index) => ({
-//     key: index + 1,
-//     label: `nav ${index + 1}`,
-// }));
 
 const arrNavlink = [
     {
@@ -15,24 +13,27 @@ const arrNavlink = [
     },
     {
         to: path.bloodPressure,
-        content: "Check huyết áp"
+        content: "BloodPresure Check"
     },
     {
         to: path.randomDefaultLottery,
-        content: "Default Random (kiến thiết)"
+        content: "Lottery Random"
     },
     {
         to: path.randomMega,
-        content: "MegaRandom"
+        content: "6/45 Random"
     },
     {
         to: path.randomPower,
-        content: "PowerRandom"
+        content: "6/55 Random"
     }
 ]
 
 
 const HomeTemplate = () => {
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+    console.log(isMobile);
+
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
@@ -40,36 +41,31 @@ const HomeTemplate = () => {
         <Layout className="vh-100 vw-100">
             <Header style={{ display: 'flex', alignItems: 'center' }}>
                 <div className="demo-logo" />
-                {arrNavlink.map((item, index) => {
-                    return (
-                        <NavLink to={item.to} className={({ isActive, isPending }) => {
-                            return `mx-2 ${isActive ? "text-dark btn btn-light" : "text-light"}`
-                        }}>{item.content}</NavLink>
-                    )
-                })
+                {
+                    isMobile ? (<MobileMenu arrNavlink={arrNavlink} />)
+                        : (arrNavlink.map((item, index) => {
+                            return (
+                                isMobile ? <MobileMenu /> : <NavLink to={item.to} className={({ isActive, isPending }) => {
+                                    return `mx-2 ${isActive ? "text-dark btn btn-light" : "text-light"}`
+                                }} style={{ textDecoration: "none" }}>{item.content}</NavLink>
+                            )
+                        }))
                 }
+
             </Header>
-            <Content style={{ padding: '0 48px' }}>
-                {/* <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb> */}
-                <div
-                    style={{
-                        background: colorBgContainer,
-                        minHeight: 280,
-                        padding: 24,
-                        borderRadius: borderRadiusLG,
-                    }}
-                >
+            <Content style={{ padding: 0, width: "100%" }}>
+                <div style={{
+                    background: colorBgContainer,
+                    padding: 24,
+                    borderRadius: borderRadiusLG,
+                }}>
                     <Outlet />
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
+            <Footer style={{ textAlign: 'center', maxHeight: "max-content" }}>
                 Created by Bối Thạnh ©{new Date().getFullYear()}
             </Footer>
-        </Layout>
+        </Layout >
     );
 };
 export default HomeTemplate;

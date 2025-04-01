@@ -37,7 +37,7 @@ const useRouteCustom = () => {
         },
         {
             path: path.bloodPressure,
-            element: <Suspense fallback={<Skeleton active />}><BloodPressure /></Suspense>
+            element: <Suspense fallback={<Skeleton active paragraph={{ rows: 30 }} />}><BloodPressure /></Suspense>
         },
 
         {

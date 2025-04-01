@@ -8,7 +8,7 @@ const MegaRandom = ({ animate, runningAnimate }) => {
 
 
     return (
-        <div className="card mx-auto" style={{ width: '18rem' }}>
+        <div className="card mx-auto my-5" style={{ width: '18rem' }}>
             <img src="./../../lottery_2.png" className="card-img-top" alt="err" />
             <div className="card-body">
                 <h5 className="card-title">Random Mega 6/45 👇</h5>
