@@ -9,11 +9,13 @@ export const generateRandomNumbers = (loaiXoSo = 45) => {
         }
         else {
             randomNumber = '0' + randomNumber;
+            console.log(randomNumber);
+
             numbersSet.add(randomNumber);
         }
     }
     let tmp = Array.from(numbersSet);
-    return tmp;
+    return tmp.sort();
 };
 
 export const defaultLottery = () => {
