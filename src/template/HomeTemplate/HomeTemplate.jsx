@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
 import { path } from '../../common/path';
@@ -32,7 +32,6 @@ const arrNavlink = [
 
 const HomeTemplate = () => {
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    console.log(isMobile);
 
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -59,7 +58,7 @@ const HomeTemplate = () => {
                     padding: 24,
                     borderRadius: borderRadiusLG,
                 }}>
-                    <Outlet />
+                    <Outlet context={{ isMobile }} />
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center', maxHeight: "max-content" }}>
