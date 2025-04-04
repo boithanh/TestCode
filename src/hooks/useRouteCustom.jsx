@@ -10,6 +10,7 @@ import { Skeleton } from 'antd'
 import MegaRandom from '../Components/MegaRandom'
 import PowerRandom from '../Components/PowerRandom'
 import Carousel from '../Components/Carousel'
+import LacXiNgau from '../Components/LacXiNgau'
 
 const useRouteCustom = () => {
     const elements = useRoutes([
@@ -32,6 +33,10 @@ const useRouteCustom = () => {
                 {
                     path: path.randomPower,
                     element: <PowerRandom />
+                },
+                {
+                    path: path.lacXiNgau,
+                    element: <LacXiNgau />
                 }
             ]
         },

@@ -1,5 +1,5 @@
 import React from 'react'
-import pageNotFoundAnimation from './../../assets/pageNotFoundAnimation.json'
+import pageNotFoundAnimation from './../../assets/animation/pageNotFoundAnimation.json'
 import { useLottie } from 'lottie-react';
 import { Link } from 'react-router-dom';
 import { path } from '../../common/path';

@@ -4,5 +4,6 @@ export const path = {
     randomDefaultLottery: "/random-default-lottery",
     randomMega: "/random-mega",
     randomPower: "/random-power",
+    lacXiNgau: "/lac-xi-ngau",
     pageNotFound: "*"
 }

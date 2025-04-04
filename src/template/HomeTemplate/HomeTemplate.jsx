@@ -26,6 +26,10 @@ const arrNavlink = [
     {
         to: path.randomPower,
         content: "6/55 Random"
+    },
+    {
+        to: path.lacXiNgau,
+        content: " Lắc xí ngầu"
     }
 ]
 
@@ -52,7 +56,7 @@ const HomeTemplate = () => {
                 }
 
             </Header>
-            <Content style={{ padding: 0, width: "100%" }}>
+            <Content style={{ padding: 0, width: "100%", minHeight: "80vh" }}>
                 <div style={{
                     background: colorBgContainer,
                     padding: 24,
