@@ -127,8 +127,10 @@ const BloodPressure = () => {
     return (
         <>
             <div className='position-absolute z-3'>
-
-                <Link to={path.homePage} className='btn'><i className="fa-solid fa-circle-arrow-left fs-2 lh-0" /></Link></div>
+                <div className="text-sm text-gray-500">
+                    <Link to="/" className="hover:underline">Trang chủ</Link> / Blood Pressure
+                </div>
+            </div>
             <div className='container-fluid blood-pressure'>
                 <div className="row">
                     <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>

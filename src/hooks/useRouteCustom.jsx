@@ -11,34 +11,30 @@ import MegaRandom from '../Components/MegaRandom'
 import PowerRandom from '../Components/PowerRandom'
 import Carousel from '../Components/Carousel'
 import LacXiNgau from '../Components/LacXiNgau'
+import FullPageTemplate from '../template/FullPageTemplate/FullPageTemplate'
 
 const useRouteCustom = () => {
+
     const elements = useRoutes([
         {
             path: path.homePage,
-            element: <HomeTemplate />,
-            children: [
-                {
-                    index: true,
-                    element: <Carousel />
-                },
-                {
-                    path: path.randomDefaultLottery,
-                    element: <DefaultLottery />
-                },
-                {
-                    path: path.randomMega,
-                    element: <MegaRandom />
-                },
-                {
-                    path: path.randomPower,
-                    element: <PowerRandom />
-                },
-                {
-                    path: path.lacXiNgau,
-                    element: <LacXiNgau />
-                }
-            ]
+            element: <FullPageTemplate />,
+        },
+        {
+            path: path.randomDefaultLottery,
+            element: <DefaultLottery />
+        },
+        {
+            path: path.randomMega,
+            element: <MegaRandom />
+        },
+        {
+            path: path.randomPower,
+            element: <PowerRandom />
+        },
+        {
+            path: path.lacXiNgau,
+            element: <LacXiNgau />
         },
         {
             path: path.bloodPressure,
