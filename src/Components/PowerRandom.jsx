@@ -11,7 +11,7 @@ const PowerRandom = () => {
         <>
             <div className='position-absolute z-3'>
                 <div className="text-sm text-gray-500">
-                    <Link to="/" className="hover:underline">Trang chủ</Link> / 6/45 Random
+                    <Link to="/" className="hover:underline">Trang chủ</Link> / 6/55 Random
                 </div>
             </div>
             <div className="container">

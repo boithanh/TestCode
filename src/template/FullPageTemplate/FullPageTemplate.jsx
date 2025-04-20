@@ -3,16 +3,14 @@ import React from 'react'
 import { arrNavlink } from '../../data/data';
 import { removeVietnameseTones } from '../../utils/utils';
 import { Link } from 'react-router-dom';
-import { setRandomBackground } from '../../utils/utils';
-
 
 const FullPageTemplate = () => {
-    console.log(setRandomBackground());
+
 
     const siteTitle = (alias) => {
         switch (true) {
             case alias === "Home":
-                return "Scroll Down ⬇"
+                return "Hover Me or Scroll Down ⬇"
             case alias === "BloodPresure Check":
                 return "Kiểm tra thông số huyết áp"
             case alias === "Lottery Random":
@@ -34,8 +32,8 @@ const FullPageTemplate = () => {
                 {
                     arrNavlink.map((item, index) => {
                         return (
-                            <li data-menuanchor={removeVietnameseTones(item.content).trim().replace(/\s+/g, '-')} key={index}>
-                                <a href={`#${index + 1}`} className="text-light">{item.content}</a>
+                            <li className='mt-3' data-menuanchor={removeVietnameseTones(item.content).trim().replace(/\s+/g, '-')} key={index}>
+                                <a href={`#${index + 1}`} className="text-white">{item.content}</a>
                             </li>
                         )
                     })
@@ -52,10 +50,8 @@ const FullPageTemplate = () => {
                         {
                             arrNavlink.map((item, index) => {
                                 return (
-                                    <div key={index} className="section" style={{ background: setRandomBackground() }}>
-                                        <h1>
-                                            <Link to={item.to} className=" text-white text-decoration-none">{siteTitle(item.content)}</Link>
-                                        </h1>
+                                    <div key={index} className="section">
+                                        <div className='btn-content'><Link className='btn' to={item.to}>{siteTitle(item.content)}</Link></div>
                                     </div>
                                 )
                             })
